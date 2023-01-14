@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
     # image project
@@ -6,7 +6,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        # image: especializati/laravel9-app
         restart: unless-stopped
         working_dir: /var/www/
         volumes:
