@@ -20,7 +20,9 @@ class FornecedorResource extends JsonResource
             'nprodutos' => $this->produtos()->count(),
             'endereco' => $this->endereco,
             'email' => $this->email,
-            'produtos' => ProdutoResource::collection($this->whenLoaded('produtos'))
+            'produtos' => ProdutoResource::collection($this->whenLoaded('produtos')),
+            'senha' => $this->senha,
+            'imagemPerfil' => $this->imagemPerfil
         ];
     }
 }
