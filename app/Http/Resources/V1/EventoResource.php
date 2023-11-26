@@ -19,8 +19,11 @@ class EventoResource extends JsonResource
             'id' => $this->id,
             'nome' => $this->nome,
             'descricao' => $this->descricao,
+            'data' => $this->data,
+            'status' => $this->status,
             'imagem' => $this->imagem,
             'cliente_id' => $this->cliente_id,
+            'pedidos' => PedidoResource::collection($this->whenLoaded('pedidos'))
         ];
     }
 }

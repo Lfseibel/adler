@@ -9,6 +9,7 @@ use App\Http\Requests\V1\UpdateEventoRequest;
 use App\Http\Resources\V1\EventoCollection;
 use App\Http\Resources\V1\EventoResource;
 use App\Models\Evento;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -25,9 +26,23 @@ class EventoController extends Controller
         
 
         $eventos = Evento::where($filterItems);
-
+        $eventos = $eventos->with('pedidos');
         
         return new EventoCollection($eventos->paginate()->appends($request->query()));
+    }
+
+    public function attachPedidoToEvento($eventoId, $pedidoId)
+    {
+        $evento = Evento::find($eventoId);
+        $pedido = Pedido::find($pedidoId);
+
+        if ($evento && $pedido) {
+            $evento->pedidos()->attach($pedido->id);
+
+            return response()->json(['message' => 'Pedido attached to Evento successfully']);
+        } else {
+            return response()->json(['message' => 'Evento or Pedido not found'], 404);
+        }
     }
 
 
@@ -38,9 +53,10 @@ class EventoController extends Controller
     {
         $requestData = $request->all();
         
-        $imageName = Str::random(32).".".$request->imagem->getClientOriginalExtension();
-        $requestData['imagem'] = $imageName;
-        Storage::disk('public')->put($imageName, file_get_contents($request->imagem));
+        if($request->imagem){
+            $imageName = Str::random(32).".".$request->imagem->getClientOriginalExtension();
+            $requestData['imagem'] = $imageName;
+            Storage::disk('public')->put($imageName, file_get_contents($request->imagem));}
         return new EventoResource(Evento::create($requestData));
     }
 

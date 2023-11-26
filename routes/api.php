@@ -34,6 +34,8 @@ Route::group(['prefix' => 'v1' ], function(){
     Route::apiResource('fornecedor', FornecedorController::class, ['show','update','destroy']);
     Route::post('produtos/bulk', [ProdutoController::class, 'bulkStore']);
 
+    
+
     Route::apiResource('produtos', ProdutoController::class);
     Route::apiResource('clientes', ClienteController::class);
     Route::apiResource('eventos', EventoController::class);
@@ -44,4 +46,6 @@ Route::group(['prefix' => 'v1' ], function(){
     Route::apiResource('tipos', TipoController::class);
     Route::apiResource('tiposprodutos', ProdutotipoController::class);
     Route::apiResource('imagemprodutos', ImagemprodutoController::class);
+
+    Route::post('/eventos/{eventoId}/attach/{pedidoId}', [EventoController::class, 'attachPedidoToEvento']);
 });

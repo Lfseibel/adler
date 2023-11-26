@@ -48,10 +48,13 @@ class ClienteController extends Controller
     public function store(StoreClienteRequest $request)
     {
         $requestData = $request->all();
+        if($request->imagem_perfil)
+        {
+            $imageName = Str::random(32).".".$request->imagem_perfil->getClientOriginalExtension();
+            $requestData['imagem_perfil'] = $imageName;
+            Storage::disk('public')->put($imageName, file_get_contents($request->imagem_perfil));
+        }
         
-        $imageName = Str::random(32).".".$request->imagem_perfil->getClientOriginalExtension();
-        $requestData['imagem_perfil'] = $imageName;
-        Storage::disk('public')->put($imageName, file_get_contents($request->imagem_perfil));
         return new ClienteResource(Cliente::create($requestData));
     }
 

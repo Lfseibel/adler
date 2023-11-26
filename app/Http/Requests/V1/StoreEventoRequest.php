@@ -25,7 +25,9 @@ class StoreEventoRequest extends FormRequest
             'nome' => ['required'],
             'descricao' => ['required'],
             'imagem' => ['image','mimes:jpeg,jpg,png,gif,svg','max:2048'],
-            'cliente_id' => ['required']
+            'cliente_id' => ['required'],
+            'status' => ['required'],
+            'data' => ['required', 'date']
         ];
     }
 }

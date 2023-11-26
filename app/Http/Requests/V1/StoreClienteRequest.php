@@ -30,7 +30,7 @@ class StoreClienteRequest extends FormRequest
             'email' => ['required','email','unique:clientes'],
             'endereco' => ['required'],
             'idade' => ['required'],
-            'imagem_perfil' => ['image','mimes:jpeg,jpg,png,gif,svg','max:2048'],
+            'imagem_perfil' => ['nullable','image','mimes:jpeg,jpg,png,gif,svg','max:2048'],
         ];
     }
 

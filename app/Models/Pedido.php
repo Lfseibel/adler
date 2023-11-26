@@ -31,4 +31,9 @@ class Pedido extends Model
     {
         return $this->belongsTo(Produto::class);
     }
+
+    public function eventos()
+    {
+        return $this->belongsToMany(Evento::class);
+    }
 }

@@ -15,10 +15,17 @@ class Evento extends Model
         'descricao',
         'cliente_id',
         'imagem',
+        'status',
+        'data'
     ];
 
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    public function pedidos()
+    {
+        return $this->belongsToMany(Pedido::class);
     }
 }

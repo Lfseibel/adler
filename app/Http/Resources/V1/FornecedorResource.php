@@ -22,7 +22,8 @@ class FornecedorResource extends JsonResource
             'email' => $this->email,
             'produtos' => ProdutoResource::collection($this->whenLoaded('produtos')),
             'senha' => $this->senha,
-            'imagemPerfil' => $this->imagemPerfil
+            'imagemPerfil' => $this->imagemPerfil,
+            'telefone' => $this->telefone
         ];
     }
 }
