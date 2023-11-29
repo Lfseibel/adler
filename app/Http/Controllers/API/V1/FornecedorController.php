@@ -43,10 +43,14 @@ class FornecedorController extends Controller
     public function store(StoreFornecedorRequest $request)
     {
         $requestData = $request->all();
+
+        if($request->imagemPerfil)
+        {
+            $imageName = Str::random(32).".".$request->imagemPerfil->getClientOriginalExtension();
+            $requestData['imagemPerfil'] = $imageName;
+            Storage::disk('public')->put($imageName, file_get_contents($request->imagemPerfil));
+        }
         
-        $imageName = Str::random(32).".".$request->imagemPerfil->getClientOriginalExtension();
-        $requestData['imagemPerfil'] = $imageName;
-        Storage::disk('public')->put($imageName, file_get_contents($request->imagemPerfil));
         return new FornecedorResource(Fornecedor::create($requestData));
 
     }
