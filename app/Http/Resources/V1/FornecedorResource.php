@@ -23,7 +23,8 @@ class FornecedorResource extends JsonResource
             'produtos' => ProdutoResource::collection($this->whenLoaded('produtos')),
             'senha' => $this->senha,
             'imagemPerfil' => $this->imagemPerfil,
-            'telefone' => $this->telefone
+            'telefone' => $this->telefone,
+            'nome' => $this->nome,
         ];
     }
 }
